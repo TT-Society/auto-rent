@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_18_221638) do
+ActiveRecord::Schema.define(version: 2019_01_18_231125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -18,6 +18,34 @@ ActiveRecord::Schema.define(version: 2019_01_18_221638) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "depenses", force: :cascade do |t|
+    t.string "description"
+    t.float "price"
+    t.bigint "user_id"
+    t.bigint "rent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rent_id"], name: "index_depenses_on_rent_id"
+    t.index ["user_id"], name: "index_depenses_on_user_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rents", force: :cascade do |t|
+    t.boolean "approve"
+    t.bigint "user_id"
+    t.float "price"
+    t.bigint "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_rents_on_plan_id"
+    t.index ["user_id"], name: "index_rents_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,4 +65,8 @@ ActiveRecord::Schema.define(version: 2019_01_18_221638) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "depenses", "rents"
+  add_foreign_key "depenses", "users"
+  add_foreign_key "rents", "plans"
+  add_foreign_key "rents", "users"
 end
