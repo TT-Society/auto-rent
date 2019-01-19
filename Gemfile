@@ -5,7 +5,7 @@ ruby '2.4.5'
 
 # PERSO ======
 gem 'devise'
-
+gem 'simple_form'
 # ============
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
