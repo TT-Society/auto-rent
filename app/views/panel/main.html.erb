@@ -8,10 +8,40 @@
   </li>
 <% end %>
 
+<%= @plans.last.name %>
 
-<%= @user1.email %>
-<%= @user2.email %>
-<%= @plans.first.name %>
-<%= @user1_rents.first.price %>
-<%= @user2_rents.first.price %>
+<table>
+  <tr>
+    <td>
+    <%= @user1.email %>
 
+    <%= @user1_rents.last.depenses.last.description if !@user1_rents.last.depenses.empty? %>
+    <%= @user1_rents.last.depenses.last.price if !@user1_rents.last.depenses.empty? %>
+    <%= @user1_rents.last.price %>
+    </td>
+  </tr>
+
+<tr>
+  <td>
+  <%= @user2.email %>
+
+  <%= @user2_rents.last.depenses.last.description if !@user2_rents.last.depenses.empty? %>
+  <%= @user2_rents.last.depenses.last.price if !@user2_rents.last.depenses.empty? %>
+  <%= @user2_rents.last.price %>
+
+  <!-- on itère sur chaque depense, on affiche et on met un suppr et edit -->
+  <!-- faire le calcul du rent  -->
+  <!-- mettre name à User -->
+  <!-- button flag pour valider le mois -->
+  <!-- liste des plans -->
+  <!-- faire le front -->
+
+  </td>
+</tr>
+</table>
+
+<%= simple_form_for @depense do |f| %>
+  <%= f.input :price %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>

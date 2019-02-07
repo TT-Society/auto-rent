@@ -19,11 +19,13 @@ class PanelController < ApplicationController
     new_plan.name = "Plan 1"
 
     first_rent = Rent.new
+    first_rent.price = 250
     first_rent.user = @user1
     first_rent.plan = new_plan
     first_rent.save
 
     second_rent = Rent.new
+    second_rent.price = 249
     second_rent.user = @user2
     second_rent.plan = new_plan
     second_rent.save
