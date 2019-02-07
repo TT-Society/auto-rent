@@ -1,3 +1,12 @@
+<!-- TODO -->
+  <!-- on itère sur chaque depense, on affiche et on met un suppr et edit -->
+  <!-- faire le calcul du rent  -->
+  <!-- mettre name à User -->
+  <!-- button flag pour valider le mois -->
+  <!-- gérer les permissions -->
+  <!-- liste des plans -->
+  <!-- faire le front -->
+
 <% if user_signed_in? %>
   <li>
   <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
@@ -8,36 +17,76 @@
   </li>
 <% end %>
 
+<select>
+  <% @plans.each do |plan| %>
+    <option value=<%= "#{plan.id}" %>><%= plan.name %></option>
+  <% end %>
+</select>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
 <%= @plans.last.name %>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
 
 <table>
   <tr>
     <td>
     <%= @user1.email %>
 
-    <%= @user1_rents.last.depenses.last.description if !@user1_rents.last.depenses.empty? %>
-    <%= @user1_rents.last.depenses.last.price if !@user1_rents.last.depenses.empty? %>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+
+    <% if !@user1_rents.last.depenses.empty? %>
+      <% @user1_rents.last.depenses.each do |depense| %>
+        <%= depense.description %>
+        <%= depense.price %>
+        <%= link_to "delete", depense_path(depense) ,method: :delete %>
+        <!-- Link to edit, Ajax, faire un JS pour afficher dans un input et transformer le button en method post -->
+      <% end %>
+    <% end %>
+
     <%= @user1_rents.last.price %>
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
     </td>
+
   </tr>
 
-<tr>
-  <td>
-  <%= @user2.email %>
+  <tr>
+    <td>
+    <%= @user2.email %>
 
-  <%= @user2_rents.last.depenses.last.description if !@user2_rents.last.depenses.empty? %>
-  <%= @user2_rents.last.depenses.last.price if !@user2_rents.last.depenses.empty? %>
-  <%= @user2_rents.last.price %>
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
 
-  <!-- on itère sur chaque depense, on affiche et on met un suppr et edit -->
-  <!-- faire le calcul du rent  -->
-  <!-- mettre name à User -->
-  <!-- button flag pour valider le mois -->
-  <!-- liste des plans -->
-  <!-- faire le front -->
+    <% if !@user2_rents.last.depenses.empty? %>
+      <% @user2_rents.last.depenses.each do |depense| %>
+        <%= depense.description %>
+        <%= depense.price %>
+        <%= link_to "delete", depense_path(depense) ,method: :delete %>
+      <% end %>
+    <% end %>
 
-  </td>
-</tr>
+    <%= @user2_rents.last.price %>
+
+    </td>
+  </tr>
 </table>
 
 <%= simple_form_for @depense do |f| %>

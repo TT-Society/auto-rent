@@ -9,6 +9,13 @@ class DepensesController < ApplicationController
   end
 
   def depenses_strong_params
-    params.require(:depense).permit(:price, :description)
+    params.require(:depense).permit(:id, :price, :description)
+  end
+
+  def destroy
+    depense = Depense.find(params[:id])
+    depense.destroy
+
+    redirect_to root_path
   end
 end
