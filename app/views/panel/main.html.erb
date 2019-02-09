@@ -1,4 +1,11 @@
-Your HTML here!
+<!-- TODO -->
+  <!-- on itère sur chaque depense, on affiche et on met un suppr et edit -->
+  <!-- faire le calcul du rent  -->
+  <!-- mettre name à User -->
+  <!-- button flag pour valider le mois -->
+  <!-- gérer les permissions -->
+  <!-- liste des plans -->
+  <!-- faire le front -->
 
 <% if user_signed_in? %>
   <li>
@@ -10,4 +17,80 @@ Your HTML here!
   </li>
 <% end %>
 
-<%= @toto %>
+<select>
+  <% @plans.each do |plan| %>
+    <option value=<%= "#{plan.id}" %>><%= plan.name %></option>
+  <% end %>
+</select>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+<%= @plans.last.name %>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+
+<table>
+  <tr>
+    <td>
+    <%= @user1.email %>
+
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+
+    <% if !@user1_rents.last.depenses.empty? %>
+      <% @user1_rents.last.depenses.each do |depense| %>
+        <%= depense.description %>
+        <%= depense.price %>
+        <%= link_to "delete", depense_path(depense) ,method: :delete %>
+        <!-- Link to edit, Ajax, faire un JS pour afficher dans un input et transformer le button en method post -->
+      <% end %>
+    <% end %>
+
+    <%= @user1_rents.last.price %>
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+    </td>
+
+  </tr>
+
+  <tr>
+    <td>
+    <%= @user2.email %>
+
+<!-- =============================== -->
+<br>
+<!-- =============================== -->
+
+    <% if !@user2_rents.last.depenses.empty? %>
+      <% @user2_rents.last.depenses.each do |depense| %>
+        <%= depense.description %>
+        <%= depense.price %>
+        <%= link_to "delete", depense_path(depense) ,method: :delete %>
+      <% end %>
+    <% end %>
+
+    <%= @user2_rents.last.price %>
+
+    </td>
+  </tr>
+</table>
+
+<%= simple_form_for @depense do |f| %>
+  <%= f.input :price %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>
